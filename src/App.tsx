@@ -1,12 +1,16 @@
 import Main from "./components/Main";
 import Navigator from "./components/Navigator";
-// import { useSelector } from "react-redux";
-// import { RootState } from "./store";
+import { useSelector } from "react-redux";
+import { RootState } from "./store";
 
 function App() {
-  // const isDarkMode = useSelector((state: RootState) => state.theme.isDarkMode);
+  const isDarkMode = useSelector((state: RootState) => state.theme.isDarkMode);
   return (
-    <div>
+    <div
+      className={`flex flex-col w-screen h-screen${
+        isDarkMode ? " bp5-dark" : ""
+      }`}
+    >
       <Navigator />
       <Main />
     </div>
