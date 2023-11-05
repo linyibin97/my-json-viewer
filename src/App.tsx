@@ -1,10 +1,9 @@
 import Main from "./components/Main";
 import Navigator from "./components/Navigator";
-import { useSelector } from "react-redux";
-import { RootState } from "./store";
+import useTheme from "./common/hooks/useTheme";
 
 function App() {
-  const isDarkMode = useSelector((state: RootState) => state.theme.isDarkMode);
+  const { isDarkMode } = useTheme();
   return (
     <div
       className={`flex flex-col w-screen h-screen${
