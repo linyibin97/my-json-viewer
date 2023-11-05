@@ -1,20 +1,21 @@
-import useTheme from "../../common/hooks/useTheme";
-import { Switch } from "@blueprintjs/core";
+import LeftContent from "./LeftContent";
+import RightContent from "./RightContent";
+import ScrollTabs from "./ScrollTabs";
+import './index.css'
 
 const Navigator = () => {
-  const { isDarkMode, setIsDarkMode } = useTheme();
-  const handleToggleDarkMode = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setIsDarkMode(!!event?.target?.checked);
-  };
 
   return (
-    <div className="bp5-navbar flex items-center overflow-hidden overflow-x-hidden">
-      <div className="mx-1">
-        <Switch large style={{margin: 0}} checked={isDarkMode} onChange={handleToggleDarkMode}/>
+    <div className="bp5-navbar flex items-center">
+      <div className="h-full w-24 border">
+        <LeftContent />
       </div>
-      {new Array(20).fill(null).map((_, index) => (
-        <div key={index} className="mx-2">{`${index}.JSON`}</div>
-      ))}
+      <div className="h-full flex-1 overflow-hidden">
+        <ScrollTabs />
+      </div>
+      <div className="h-full w-36 border">
+        <RightContent />
+      </div>
     </div>
   );
 };
