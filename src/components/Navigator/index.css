@@ -1,9 +1,16 @@
-.hide-scrollbar::-webkit-scrollbar {
-  display: none;
+.mini-scrollbar {
+  padding-top: 0.2rem;
 }
-.hide-scrollbar {
-  scrollbar-width: none;
+.mini-scrollbar::-webkit-scrollbar {
+  width: 0.2rem;
+  height: 0.2rem;
+  background-color: transparent;
 }
-.hide-scrollbar {
-  -ms-overflow-style: none;
+.mini-scrollbar::-webkit-scrollbar-thumb {
+  background-color: rgba(192, 192, 192, 0);
+  border-radius: 0.2rem;
+}
+
+.mini-scrollbar-show::-webkit-scrollbar-thumb {
+  background-color: rgba(192, 192, 192, 0.6);
 }
