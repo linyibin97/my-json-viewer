@@ -1,9 +1,11 @@
-import { configureStore } from '@reduxjs/toolkit';
-import themeReducer from './reducer/theme';
+import { configureStore } from "@reduxjs/toolkit";
+import theme from "./reducer/theme";
+import files from "./reducer/files";
 
 export const store = configureStore({
   reducer: {
-    theme: themeReducer,
+    theme,
+    files,
   },
 });
 
