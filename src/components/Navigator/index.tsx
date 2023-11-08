@@ -6,13 +6,13 @@ import "./index.css";
 const Navigator = () => {
   return (
     <div className="bp5-navbar flex items-center" style={{ padding: 0, height: '2.5rem' }}>
-      <div className="h-full w-24 bg-slate-400 opacity-50">
+      <div className="h-full w-24">
         <LeftContent />
       </div>
       <div className="h-full flex-1 overflow-hidden">
         <ScrollTabs />
       </div>
-      <div className="h-full w-24 bg-slate-400 opacity-50">
+      <div className="h-full w-24">
         <RightContent />
       </div>
     </div>
