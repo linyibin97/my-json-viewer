@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import {
   DragDropContext,
   Droppable,
@@ -32,12 +32,33 @@ function getStyle(
   return style;
 }
 
+function getTabItemStyle(props: {
+  isDarkMode: boolean;
+  isOpened: boolean;
+}): React.CSSProperties {
+  const { isDarkMode, isOpened } = props;
+  let style: React.CSSProperties = {};
+  if (isOpened) {
+    style = {
+      ...style,
+      background: isDarkMode ? Colors.DARK_GRAY4 : Colors.LIGHT_GRAY5,
+      border: `0.125rem solid ${Colors.BLUE5}`,
+    };
+  } else {
+    style = {
+      ...style,
+      background: isDarkMode ? Colors.DARK_GRAY5 : Colors.LIGHT_GRAY3,
+    };
+  }
+  return style;
+}
+
 let scrollbarTimer: any = null;
 
 const ScrollTabs = () => {
   const { isDarkMode } = useTheme();
   const [list, setList] = useState(mockTabList);
-  const [currentIndex, setCurrentIndex] = useState<number>(2);
+  const [currentId, setCurrentId] = useState<string>(mockTabList[0].id);
   const [isShowScrollBar, setIsShowScrollbar] = useState<boolean>(false);
 
   const showScrollBar = () => {
@@ -71,6 +92,10 @@ const ScrollTabs = () => {
     setList(newList);
   };
 
+  const onSelectTab = (id: string) => {
+    setCurrentId(id);
+  };
+
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId="droppable" direction="horizontal">
@@ -94,17 +119,23 @@ const ScrollTabs = () => {
                     {...provided.dragHandleProps}
                     style={{
                       ...getStyle(provided.draggableProps.style, snapshot),
-                      background: isDarkMode
-                        ? Colors.DARK_GRAY5
-                        : Colors.LIGHT_GRAY4,
+                      ...getTabItemStyle({
+                        isDarkMode,
+                        isOpened: item.id === currentId,
+                      }),
                     }}
                     className="item"
+                    onClick={(e) => {
+                      onSelectTab(item.id);
+                      e.stopPropagation();
+                    }}
                   >
                     <Icon icon="document" size={14}></Icon>
                     <Text className="text">{item.name}</Text>
                     <div
-                      onClick={() => {
+                      onClick={(e) => {
                         onCloseTab(index);
+                        e.stopPropagation();
                       }}
                       className="close-button"
                       style={{
