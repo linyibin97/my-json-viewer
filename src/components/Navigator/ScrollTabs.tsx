@@ -8,27 +8,8 @@ import {
   NotDraggingStyle,
 } from "react-beautiful-dnd";
 import useTheme from "@/common/hooks/useTheme";
-import { Text, Icon, IconSize, Colors } from "@blueprintjs/core";
-
-const mockList: { id: string; name: string }[] = [];
-for (let i = 0; i < 30; i++) {
-  const names = [
-    "John",
-    "Lisa",
-    "Mark",
-    "Sarah",
-    "William",
-    "Samantha",
-    "Alexander",
-    "KatherineKatherine",
-    "BenjaminBenjamin",
-    "ElizabethElizabethElizabethElizabeth",
-  ];
-  mockList.push({
-    id: "tab" + i,
-    name: names[Math.floor(Math.random() * names.length)],
-  });
-}
+import { Text, Icon, Colors } from "@blueprintjs/core";
+import { mockTabList } from "@/common/utils/mock";
 
 const reorder = (list: any[], startIndex: number, endIndex: number) => {
   const result = Array.from(list);
@@ -55,7 +36,7 @@ let scrollbarTimer: any = null;
 
 const ScrollTabs = () => {
   const { isDarkMode } = useTheme();
-  const [list, setList] = useState(mockList);
+  const [list, setList] = useState(mockTabList);
   const [currentIndex, setCurrentIndex] = useState<number>(2);
   const [isShowScrollBar, setIsShowScrollbar] = useState<boolean>(false);
 
