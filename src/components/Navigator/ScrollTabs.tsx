@@ -7,7 +7,7 @@ import {
   DraggingStyle,
   NotDraggingStyle,
 } from "react-beautiful-dnd";
-import useTheme from "../../common/hooks/useTheme";
+import useTheme from "@/common/hooks/useTheme";
 import { Text, Icon, IconSize, Colors } from "@blueprintjs/core";
 
 const mockList: { id: string; name: string }[] = [];
@@ -51,7 +51,7 @@ function getStyle(
   return style;
 }
 
-let scrollbarTimer: number | null = null;
+let scrollbarTimer: any = null;
 
 const ScrollTabs = () => {
   const { isDarkMode } = useTheme();

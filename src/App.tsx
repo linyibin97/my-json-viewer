@@ -1,6 +1,6 @@
-import Main from "./components/Main";
-import Navigator from "./components/Navigator";
-import useTheme from "./common/hooks/useTheme";
+import Main from "@/components/Main";
+import Navigator from "@/components/Navigator";
+import useTheme from "@/common/hooks/useTheme";
 
 function App() {
   const { isDarkMode } = useTheme();

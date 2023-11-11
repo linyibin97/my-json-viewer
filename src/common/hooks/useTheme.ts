@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useCallback } from "react";
-import { RootState } from "../../store";
-import { toggleDarkMode } from "../../store/reducer/theme";
+import { RootState } from "@/store";
+import { toggleDarkMode } from "@/store/reducer/theme";
 
 function useTheme() {
   const dispatch = useDispatch();

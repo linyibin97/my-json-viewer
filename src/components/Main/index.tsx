@@ -1,4 +1,4 @@
-import useTheme from "../../common/hooks/useTheme";
+import useTheme from "@/common/hooks/useTheme";
 import { Switch } from "@blueprintjs/core";
 
 const Main = () => {
