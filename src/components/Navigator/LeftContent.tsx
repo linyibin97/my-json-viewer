@@ -8,7 +8,7 @@ const LeftContent = () => {
   };
 
   return (
-    <div className="h-full flex items-center">
+    <div className="buttons">
       <Switch
         large
         style={{ margin: 0 }}

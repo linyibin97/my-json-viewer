@@ -5,11 +5,7 @@ import useTheme from "./common/hooks/useTheme";
 function App() {
   const { isDarkMode } = useTheme();
   return (
-    <div
-      className={`flex flex-col w-screen h-screen${
-        isDarkMode ? " bp5-dark" : ""
-      }`}
-    >
+    <div className={`app ${isDarkMode ? "bp5-dark" : ""}`}>
       <Navigator />
       <Main />
     </div>

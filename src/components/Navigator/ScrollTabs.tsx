@@ -1,6 +1,14 @@
 import { useState } from "react";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import {
+  DragDropContext,
+  Droppable,
+  Draggable,
+  DraggableStateSnapshot,
+  DraggingStyle,
+  NotDraggingStyle,
+} from "react-beautiful-dnd";
 import useTheme from "../../common/hooks/useTheme";
+import { Text, Icon, IconSize, Colors } from "@blueprintjs/core";
 
 const mockList: { id: string; name: string }[] = [];
 for (let i = 0; i < 30; i++) {
@@ -30,11 +38,25 @@ const reorder = (list: any[], startIndex: number, endIndex: number) => {
   return result;
 };
 
+function getStyle(
+  style: DraggingStyle | NotDraggingStyle | undefined,
+  snapshot: DraggableStateSnapshot
+) {
+  if (snapshot.isDropAnimating) {
+    return {
+      ...style,
+      transitionDuration: `0.001s`,
+    };
+  }
+  return style;
+}
+
 let scrollbarTimer: number | null = null;
 
 const ScrollTabs = () => {
   const { isDarkMode } = useTheme();
   const [list, setList] = useState(mockList);
+  const [currentIndex, setCurrentIndex] = useState<number>(2);
   const [isShowScrollBar, setIsShowScrollbar] = useState<boolean>(false);
 
   const showScrollBar = () => {
@@ -59,19 +81,24 @@ const ScrollTabs = () => {
     if (!result.destination) {
       return;
     }
-
     setList(reorder(list, result.source.index, result.destination.index));
+  };
+
+  const onCloseTab = (index: number) => {
+    const newList = Array.from(list);
+    newList.splice(index, 1);
+    setList(newList);
   };
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId="droppable" direction="horizontal">
-        {(provided, snapshot) => (
+        {(provided, _snapshot) => (
           <div
             ref={provided.innerRef}
             {...provided.droppableProps}
             className={
-              "h-full flex flex-row items-center overflow-x-auto mini-scrollbar" +
+              "nav-tabs mini-scrollbar" +
               (isShowScrollBar ? " mini-scrollbar-show" : "")
             }
             onWheel={handleWheel}
@@ -84,14 +111,29 @@ const ScrollTabs = () => {
                     ref={provided.innerRef}
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
-                    style={provided.draggableProps.style}
-                    className={
-                      "mx-0.5 px-2 py-1.5 truncate shrink-0 max-w-[10rem] cursor-pointer select-none " +
-                      (isDarkMode ? "bg-[#404854] " : "bg-[#F6F7F9] ") +
-                      (snapshot.isDragging ? "opacity-80" : "")
-                    }
+                    style={{
+                      ...getStyle(provided.draggableProps.style, snapshot),
+                      background: isDarkMode
+                        ? Colors.DARK_GRAY5
+                        : Colors.LIGHT_GRAY4,
+                    }}
+                    className="item"
                   >
-                    {item.name}
+                    <Icon icon="document" size={14}></Icon>
+                    <Text className="text">{item.name}</Text>
+                    <div
+                      onClick={() => {
+                        onCloseTab(index);
+                      }}
+                      className="close-button"
+                      style={{
+                        background: isDarkMode
+                          ? Colors.GRAY1
+                          : Colors.LIGHT_GRAY2,
+                      }}
+                    >
+                      <Icon icon="small-cross"></Icon>
+                    </div>
                   </div>
                 )}
               </Draggable>
